@@ -28,10 +28,10 @@ An AI-powered Streamlit application that uses **Retrieval-Augmented Generation (
 ##  Screenshots
 
 ### 1. Initial State (Before API Key)
-![Initial UI](ui.start.png)
+![Initial UI](ui_start.png)
 
 ### 2. System Ready
-![System Ready](ui.ready.png)
+![System Ready](ui_ready.png)
 
 ### 3. File Upload + Analysis
 ![File Upload Analysis](file_upload_analysis.png)
