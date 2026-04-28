@@ -55,8 +55,8 @@ An AI-powered Streamlit application that uses **Retrieval-Augmented Generation (
 ##  Installation & Setup
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/Urvah8565/agentic-rag-system
+cd agentic-rag-system
 
 pip install -r requirements.txt
 streamlit run app.py
