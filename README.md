@@ -33,8 +33,8 @@ An AI-powered Streamlit application that uses **Retrieval-Augmented Generation (
 ### 2. System Ready
 ![System Ready](ui_ready.png)
 
-### 3. File Upload + Analysis
-![File Upload Analysis](file_upload_analysis.png)
+### 3.  File Upload 
+![File Upload Analysis](file_upload.png)
 
 ### 4. Final Output (Correct Analysis)
 ![Final Output](output.png)
