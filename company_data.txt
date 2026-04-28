@@ -1,0 +1,11 @@
+Company: AlphaTech
+
+Monthly Sales Report - 2026
+
+January: 15 units sold
+February: 25 units sold
+March: 35 units sold
+April: 50 units sold
+
+Note: Sales are steadily increasing due to new product launch.
+
