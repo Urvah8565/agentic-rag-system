@@ -1,3 +1,7 @@
+
+live demo :
+https://agentic-rag-system-kscuctfsngsrc7evpqk5bj.streamlit.app/
+
 #  Agentic RAG System
 
 An AI-powered Streamlit application that uses **Retrieval-Augmented Generation (RAG)** and an **Agent-based system** to extract data from documents and perform mathematical trend analysis.
