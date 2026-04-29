@@ -72,3 +72,6 @@ streamlit run app.py
 > - Enter your **Google Gemini API Key** in the sidebar.
 > - This project uses **BYOK (Bring Your Own Key)**.
 > - No API key is stored in the code (secure approach).
+
+## Project Developer
+Urvah Mansuri
