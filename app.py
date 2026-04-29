@@ -8,20 +8,20 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.prebuilt import create_react_agent
 from langchain_core.messages import HumanMessage
 
-# --- 1. Page Configuration ---
+#1.Page Configuration
 st.set_page_config(page_title="Agentic RAG Analytics", page_icon="🤖")
 st.title("📈 Agentic RAG System")
 st.markdown("Upload data → AI extracts insights → Automatically calculates trends using an intelligent agent.")
 
 st.markdown("""
-### 🧪 How to use:
+###  How to use:
 1. Enter your Gemini API key (left sidebar)
 2. Upload a `.txt` file OR use default data
 3. Click **Run Analysis**
 4. Get AI-powered trend insights 📊
 """)
 
-# --- 2. Dynamic File Upload ---
+#2.Dynamic File Upload
 uploaded_file = st.file_uploader("Upload a text file (optional, uses default if empty)", type=["txt"])
 
 if uploaded_file is not None:
@@ -31,10 +31,10 @@ if uploaded_file is not None:
     st.success("File uploaded successfully! Updating the agent's memory...")
     st.cache_resource.clear()
 
-# --- 3. API Key ---
+#3.API Key
 api_key = st.sidebar.text_input("Enter Google Gemini API Key:", type="password")
 
-# --- 4. Agent Setup ---
+#4.Agent Setup
 @st.cache_resource
 def initialize_agent(_api_key):
     os.environ["GOOGLE_API_KEY"] = _api_key
@@ -46,14 +46,14 @@ def initialize_agent(_api_key):
     vector_db = FAISS.from_documents(docs, embeddings)
     retriever = vector_db.as_retriever()
 
-    # Tool 1: Search
+    #Tool 1:Search
     @tool
     def search_company_data(query: str) -> str:
         """Search for numerical sales data or relevant company information from the document."""
         results = retriever.invoke(query)
         return "\n\n".join([doc.page_content for doc in results])
 
-    # Tool 2: Regression
+    #Tool 2:Regression
     @tool
     def calculate_trend_slope(x_values: list[float], y_values: list[float]) -> float:
         """Calculate linear regression slope to determine trend."""
@@ -77,24 +77,22 @@ def initialize_agent(_api_key):
 
     return create_react_agent(llm, tools_list)
 
-# --- 5. Run App ---
+#5.Run App
 if api_key:
     with st.spinner("Initializing agent and building knowledge base..."):
         agent = initialize_agent(api_key)
         st.success("System is ready!")
 
-    # 🔥 NEW AGENTIC PROMPT (FIXED)
+    #AGENTIC PROMPT 
     default_prompt = """
 Analyze the provided document and identify any numerical sales data.
-
 Use that data to determine the overall trend by calculating the linear regression slope.
-
 Explain whether the trend is increasing, decreasing, or stable.
 """
 
     user_query = st.text_area("What would you like the agent to do?", value=default_prompt)
 
-    st.caption("💡 The agent will automatically extract data and calculate trends.")
+    st.caption(" The agent will automatically extract data and calculate trends.")
 
     if st.button("Run Analysis"):
         with st.spinner("Agent is thinking, retrieving data, and calculating..."):
@@ -111,5 +109,5 @@ Explain whether the trend is increasing, decreasing, or stable.
                 st.info(raw_data)
 
 else:
-    st.info("🔑 Enter your Gemini API key in the sidebar to activate the AI agent.")
-    st.markdown("👉 This app uses **BYOK (Bring Your Own Key)** for security.")
+    st.info(" Enter your Gemini API key in the sidebar to activate the AI agent.")
+    st.markdown(" This app uses **BYOK (Bring Your Own Key)** for security.")
