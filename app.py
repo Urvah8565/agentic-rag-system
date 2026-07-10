@@ -61,7 +61,7 @@ def initialize_agent(_api_key):
     vector_db = FAISS.from_documents(docs, embeddings)
     retriever = vector_db.as_retriever()
 
-    #Tool 1: Searchx
+    #Tool 1: Search
     @tool
     def search_company_data(query: str) -> str:
         """Search for numerical sales data or relevant company information from the document."""
@@ -157,17 +157,29 @@ Predict next month's sales.
 
     if st.button("Run Analysis"):
         with st.spinner("Agent is thinking, retrieving data, and calculating..."):
-            response = agent.invoke({"messages": [HumanMessage(content=user_query)]})
+            try:
+                response = agent.invoke({"messages": [HumanMessage(content=user_query)]})
 
-            st.markdown("### Final Output")
+                st.markdown("### Final Output")
 
-            raw_data = response["messages"][-1].content
+                raw_data = response["messages"][-1].content
 
-            if isinstance(raw_data, list):
-                clean_text = raw_data[0].get('text', str(raw_data))
-                st.info(clean_text)
-            else:
-                st.info(raw_data)
+                if isinstance(raw_data, list):
+                    clean_text = raw_data[0].get('text', str(raw_data))
+                    st.info(clean_text)
+                else:
+                    st.info(raw_data)
+
+            except Exception as e:
+                error_msg = str(e).lower()
+                if "quota" in error_msg or "rate" in error_msg or "exhausted" in error_msg or "429" in error_msg:
+                    st.error("API quota exceeded. Your Gemini API key has reached its limit. Please wait or use a different API key.")
+                elif "invalid" in error_msg or "api key" in error_msg or "401" in error_msg or "403" in error_msg:
+                    st.error("Invalid API key. Please check your Gemini API key and try again.")
+                elif "network" in error_msg or "connection" in error_msg or "timeout" in error_msg:
+                    st.error("Network error. Please check your internet connection and try again.")
+                else:
+                    st.error(f"Something went wrong: {e}")
 
 else:
     st.info("Enter your Gemini API key in the sidebar to activate the AI agent.")
