@@ -1,71 +1,76 @@
+# Agentic RAG System
 
-
-#  Agentic RAG System
-
-An AI-powered Streamlit application that uses **Retrieval-Augmented Generation (RAG)** and an **Agent-based system** to extract data from documents and perform mathematical trend analysis.
+An AI-powered Streamlit application that uses Retrieval-Augmented 
+Generation (RAG) and a LangGraph ReAct agent to extract insights 
+from business documents and perform mathematical trend analysis.
 
 ---
+
+## Features
+
+- Upload your own `.txt` or `.pdf` file
+- Extract relevant data using RAG (FAISS + HuggingFace embeddings)
+- LangGraph ReAct agent dynamically routes between document 
+  retrieval and numerical analysis tools
+- Built-in linear regression tool for sales trend detection 
+  and next-month forecasting
+- Out-of-scope query rejection — agent declines questions not 
+  answerable from the document
+- Real-time analysis with Gemini API (BYOK – Bring Your Own Key)
+- Graceful error handling for API quota limits, invalid keys, 
+  and network failures
+
+---
+
 ## Live App :
 https://agentic-rag-system-kscuctfsngsrc7evpqk5bj.streamlit.app/
 
-##  Features
+## How It Works
 
--  Upload your own `.txt` file
--  Extract relevant data using RAG (FAISS + embeddings)
--  Agent-based reasoning using LangGraph
--  Built-in math tool (Linear Regression Slope)
--  Real-time analysis with Gemini API (BYOK – Bring Your Own Key)
-
----
-
-##  How It Works
-
-1. User uploads a text file (or uses default data)
-2. RAG pipeline retrieves relevant information
-3. Agent decides:
-   - When to use search tool
-   - When to use math tool
-4. Final output is generated with reasoning
+1. User uploads a `.txt` or `.pdf` business document 
+   (or uses default data)
+2. RAG pipeline chunks and embeds the document into FAISS 
+   vector store
+3. LangGraph ReAct agent decides:
+   - When to use the document retrieval tool (factual questions)
+   - When to use the linear regression tool (trend/forecast questions)
+   - When to reject the query (out-of-scope questions)
+4. Final output is generated with full reasoning trace
 
 ---
 
-##  Screenshots
+## Model Performance
 
-### 1. Initial State (Before API Key)
-![Initial UI](ui_start.png)
+Validated across 10–12 business documents and multiple query types:
+- Targeted retrieval queries
+- Full business report generation (summary, trend, forecast, 
+  recommendations)
+- Out-of-scope query rejection
 
-### 2. System Ready
-![System Ready](ui_ready.png)
+---
 
-### 3.  File Upload 
-![File Upload Analysis](file_upload.png)
-
-### 4. Final Output (Correct Analysis)
-![Final Output](output.png)
-
-
-##  Tech Stack
+## Tech Stack
 
 - Python
 - Streamlit
 - LangChain
 - LangGraph
 - FAISS (Vector Database)
-- HuggingFace Embeddings
-- Google Gemini API
+- HuggingFace Embeddings (all-MiniLM-L6-v2)
+- Google Gemini API (gemini-2.5-flash)
+- pdfplumber (PDF text extraction)
 
 ---
 
-##  Installation & Setup
+## Installation & Setup
 
 ```bash
 git clone https://github.com/Urvah8565/agentic-rag-system
 cd agentic-rag-system
-
 pip install -r requirements.txt
 streamlit run app.py
 ```
-   
+
 ## API Key Setup
 
 > **Important Security Note:**
@@ -74,4 +79,4 @@ streamlit run app.py
 > - No API key is stored in the code (secure approach).
 
 ## Project Developer
-Urvah Mansuri
+[Urvah Mansuri]
